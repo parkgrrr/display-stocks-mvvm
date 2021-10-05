@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">Square Challenge - Parker Stevens</string>
+  <string name="stock_error">An Error Has Occurred</string>
+  <string name="empty_list">You Have No Holdings</string>
+  <string name="quantity">Quantity:</string>
+  <string name="quantity_not_available">N/A</string>
+
+</resources>
