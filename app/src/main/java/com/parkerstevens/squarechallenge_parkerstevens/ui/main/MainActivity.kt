@@ -10,11 +10,8 @@ import com.parkerstevens.squarechallenge_parkerstevens.databinding.ActivityMainB
 
 class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class.java) {
   private val adapter = StocksAdapter()
-  private val SUCCESS_SCREEN = 0
-  private val ERROR_SCREEN = 1
   override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
     get() = ActivityMainBinding::inflate
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -58,4 +55,8 @@ class MainActivity : BaseActivity<MainVM, ActivityMainBinding>(MainVM::class.jav
     }
   }
 
+  companion object {
+    private const val SUCCESS_SCREEN = 0
+    private const val ERROR_SCREEN = 1
+  }
 }

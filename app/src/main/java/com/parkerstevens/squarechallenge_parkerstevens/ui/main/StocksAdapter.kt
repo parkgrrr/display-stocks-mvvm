@@ -11,8 +11,8 @@ import com.parkerstevens.squarechallenge_parkerstevens.toCurrency
 import com.parkerstevens.squarechallenge_parkerstevens.toTime
 
 class StocksAdapter : RecyclerView.Adapter<StocksAdapter.StocksViewHolder>() {
-  lateinit var binding : StockItemBinding
-  private var stocksList : List<Stock> = listOf()
+  lateinit var binding: StockItemBinding
+  private var stocksList: List<Stock> = listOf()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StocksViewHolder {
     val inflater = LayoutInflater.from(parent.context)
@@ -31,14 +31,13 @@ class StocksAdapter : RecyclerView.Adapter<StocksAdapter.StocksViewHolder>() {
       timeText.text = stock.timestamp.toTime()
 
     }
-
   }
 
   override fun getItemCount(): Int {
     return stocksList.size
   }
 
-  fun updateStocks(stocks : List<Stock>) {
+  fun updateStocks(stocks: List<Stock>) {
     stocksList = stocks
     notifyDataSetChanged()
     // TODO: 10/4/21 add diffutil to update prices/values that have changes more efficiently

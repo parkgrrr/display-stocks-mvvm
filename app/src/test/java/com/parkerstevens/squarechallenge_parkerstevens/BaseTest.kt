@@ -9,7 +9,7 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-abstract class BaseTest{
+abstract class BaseTest {
   @[JvmField Rule]
   val rxRule = RxTrampolineSchedulerRule()
 

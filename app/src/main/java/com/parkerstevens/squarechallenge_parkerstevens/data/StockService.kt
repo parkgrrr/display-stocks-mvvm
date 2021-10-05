@@ -24,7 +24,7 @@ interface StockService {
 
   companion object {
     // change URL according to local server setup. This IP will point to localhost from an emulator
-    private var stockService : StockService? = null
+    private var stockService: StockService? = null
     private val baseUrl = "https://storage.googleapis.com/cash-homework/cash-stocks-api/"
 
     fun create(): StockService {

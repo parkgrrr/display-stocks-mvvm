@@ -7,12 +7,12 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseVM : ViewModel() {
   protected val disposables = CompositeDisposable()
+
   @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-  val api : StockService = StockService.create()
+  val api: StockService = StockService.create()
 
   override fun onCleared() {
     super.onCleared()
     disposables.clear()
   }
-
 }

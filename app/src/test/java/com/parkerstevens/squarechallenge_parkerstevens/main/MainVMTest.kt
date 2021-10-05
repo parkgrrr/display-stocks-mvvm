@@ -12,7 +12,6 @@ import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.spyk
 import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
 
@@ -22,13 +21,8 @@ class MainVMTest : BaseTest() {
   private lateinit var mapi: StockService
   private lateinit var viewModel: MainVM
 
-  @Before
-  fun setup() {
-
-  }
-
-  private fun setupVM(responseString : String, shouldError : Boolean = false) {
-    mapi = object :StockService {
+  private fun setupVM(responseString: String, shouldError: Boolean = false) {
+    mapi = object : StockService {
       override fun getPortfolio(): Single<Response<PortfolioResponse>> {
         val portfolio = Gson().fromJson(responseString, PortfolioResponse::class.java)
         val response = if (!shouldError) {
@@ -56,6 +50,8 @@ class MainVMTest : BaseTest() {
 
   @Test
   fun `Check that good response from server returns a success status`() {
+
+    // TODO: 10/5/21 tests break DRY and have lots of duplicate code. Test json should also live in their own files
     val observer = Observer<StockStatus> {}
     setupVM(GOOD_RESPONSE)
     try {
@@ -63,9 +59,7 @@ class MainVMTest : BaseTest() {
       viewModel.status.observeForever(observer)
       val value = viewModel.status.value
       assert(value is StockStatus.Success)
-
-    }
-    finally {
+    } finally {
       viewModel.status.removeObserver(observer)
     }
   }
@@ -80,9 +74,7 @@ class MainVMTest : BaseTest() {
       viewModel.status.observeForever(observer)
       val value = viewModel.status.value
       assert(value is StockStatus.Empty)
-
-    }
-    finally {
+    } finally {
       viewModel.status.removeObserver(observer)
     }
   }
@@ -97,9 +89,7 @@ class MainVMTest : BaseTest() {
       viewModel.status.observeForever(observer)
       val value = viewModel.status.value
       assert(value is StockStatus.Error)
-
-    }
-    finally {
+    } finally {
       viewModel.status.removeObserver(observer)
     }
   }
@@ -110,6 +100,5 @@ class MainVMTest : BaseTest() {
     """
 
     const val EMPTY_RESPONSE = """{"stocks":[]}"""
-
   }
 }
