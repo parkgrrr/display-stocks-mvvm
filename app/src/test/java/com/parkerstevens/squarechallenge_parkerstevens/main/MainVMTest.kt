@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import com.parkerstevens.squarechallenge_parkerstevens.BaseTest
 import com.parkerstevens.squarechallenge_parkerstevens.data.StockService
+import com.parkerstevens.squarechallenge_parkerstevens.data.StocksRepository
 import com.parkerstevens.squarechallenge_parkerstevens.data.models.PortfolioResponse
 import com.parkerstevens.squarechallenge_parkerstevens.ui.main.MainVM
 import com.parkerstevens.squarechallenge_parkerstevens.ui.main.StockStatus
@@ -18,11 +19,11 @@ import retrofit2.Response
 class MainVMTest : BaseTest() {
 
   @RelaxedMockK
-  private lateinit var mapi: StockService
+  private lateinit var mockApi: StockService
   private lateinit var viewModel: MainVM
 
   private fun setupVM(responseString: String, shouldError: Boolean = false) {
-    mapi = object : StockService {
+    mockApi = object : StockService {
       override fun getPortfolio(): Single<Response<PortfolioResponse>> {
         val portfolio = Gson().fromJson(responseString, PortfolioResponse::class.java)
         val response = if (!shouldError) {
@@ -30,7 +31,6 @@ class MainVMTest : BaseTest() {
         } else {
           Response.error(400, "error".toResponseBody())
         }
-
         return Single.just(response)
       }
 
@@ -44,7 +44,7 @@ class MainVMTest : BaseTest() {
     }
 
     viewModel = spyk<MainVM> {
-      every { api } returns mapi
+      every { repository } returns StocksRepository(mockApi)
     }
   }
 
