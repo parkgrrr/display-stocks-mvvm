@@ -18,8 +18,10 @@ To test the app, you can run it to see a successful response. To change it to an
 * A repository was created to add in a future database or caching layer to avoid redundant network calls
 * Rx for network call threading and error handling
 * BaseActivity and BaseVM for code extension and scaling. I am creating the netork service and handle much of the view binding and view model relationship in the BaseVM
-* Mockk for testing VM, with a Mock API and validation of view states
 * I kept the UI fairly simple as I don't know what to expect for the on site. Otherwise I would have added a refresh button, caching, and buttons to for the reviewer to test the malformed and empty API responses.
+
+## Testing
+* Mockk for testing the MainVM, with a Mock API and validation of view states
 
 ## Tradeoffs
 * I chose RxKotlin over coroutines since I am a little more comfortable using it for networking
