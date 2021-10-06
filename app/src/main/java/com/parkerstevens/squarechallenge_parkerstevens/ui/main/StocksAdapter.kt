@@ -3,6 +3,7 @@ package com.parkerstevens.squarechallenge_parkerstevens.ui.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.parkerstevens.squarechallenge_parkerstevens.R
 import com.parkerstevens.squarechallenge_parkerstevens.data.models.Stock
@@ -37,10 +38,11 @@ class StocksAdapter : RecyclerView.Adapter<StocksAdapter.StocksViewHolder>() {
     return stocksList.size
   }
 
-  fun updateStocks(stocks: List<Stock>) {
-    stocksList = stocks
-    notifyDataSetChanged()
-    // TODO: 10/4/21 add diffutil to update prices/values that have changes more efficiently
+  fun updateStocks(newStocks: List<Stock>) {
+    val stocksDiff = StocksDiff(oldStocks = stocksList, newStocks = newStocks)
+    val result = DiffUtil.calculateDiff(stocksDiff, true)
+    stocksList = newStocks
+    result.dispatchUpdatesTo(this)
   }
 
   inner class StocksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
